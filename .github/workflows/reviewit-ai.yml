@@ -34,7 +34,7 @@ jobs:
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
           echo
-          echo "OUTPUT=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_ENV
+          echo "review_output=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           
           
       - name: Add PR Comment
@@ -46,6 +46,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              # body: `${{ steps.get_ai_review.outputs.output }}`
-              body: env.OUTPUT
+              body: `${{ steps.get_ai_review.outputs.review_output }}`
             })
