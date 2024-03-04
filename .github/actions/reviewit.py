@@ -1,4 +1,5 @@
 import os
+import sys
 import click
 from github import Github
 
@@ -58,4 +59,4 @@ def main(repo_name, pr_number):
 
 
 if __name__ == "__main__":
-    main()
+    sys.stdout.write(main())
