@@ -2,3 +2,7 @@
 
 def wrong():
   ...
+
+
+def right():
+  return 'something'
