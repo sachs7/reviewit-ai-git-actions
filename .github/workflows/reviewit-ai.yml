@@ -36,7 +36,6 @@ jobs:
           echo
           echo "review_output=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           
-          
       - name: Add PR Comment
         uses: actions/github-script@v6
         with:
