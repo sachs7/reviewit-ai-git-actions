@@ -37,14 +37,16 @@ jobs:
         env:
           URL: ${{ github.event.issue.comments_url }}
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-        with:
           run: |
-            curl \
-              -X POST \
-              $URL \
-              -H "Content-Type: application/json" \
-              -H "Authorization: token $GIT_TOKEN" \
-              --data '{ "body": `$GITHUB_OUTPUT` }'
+            echo $URL
+        with:
+            run: |
+              curl \
+                -X POST \
+                $URL \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer $GIT_TOKEN" \
+                --data '{ "body": $GITHUB_OUTPUT }'
       
       # - name: Add comment
       #   env:
