@@ -52,9 +52,9 @@ def get_file_contents(repo_name, pr_number):
 )
 def main(repo_name, pr_number):
     pr_contents = get_file_contents(repo_name, pr_number)
-    click.echo(pr_contents)
+    click.echo("```\n" + pr_contents + "\n```")
     reviews = get_code_review(pr_contents)
-    click.echo(reviews)
+    click.echo("# ReviewIt-AI Opinion:\n" + reviews)
 
 
 if __name__ == "__main__":
