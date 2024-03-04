@@ -21,11 +21,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-
       - name: Run ReviewIt-AI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
-        run: python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+        run: |
+          echo $REPO
+          echo $PR_NUMBER
+          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
