@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements.txt --quiet
       - name: Run ReviewIt-AI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
