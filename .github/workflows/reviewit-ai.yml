@@ -40,7 +40,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const aiReviewOutput = steps.get_ai_review.outputs.stdout;
+            const aiReviewOutput = `${{ steps.get_ai_review.outputs.stdout }}`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
