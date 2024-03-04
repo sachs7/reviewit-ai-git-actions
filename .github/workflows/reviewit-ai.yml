@@ -27,4 +27,4 @@ jobs:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
-        run: python .github/actions/reviewit.py -r REPO -p PR_NUMBER
+        run: python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
