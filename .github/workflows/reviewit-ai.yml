@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+         repository: sachs7/reviewit-ai-git-actions
+         token: ${{ secrets.GIT_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,8 +27,7 @@ jobs:
       - name: Run ReviewIt-AI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
-          GIT_TOKEN: ${{ github.token }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
         run: |
