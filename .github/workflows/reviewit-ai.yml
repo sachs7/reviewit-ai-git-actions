@@ -21,7 +21,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt --quiet
+
       - name: Run ReviewIt-AI
+        id: get_ai_review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
@@ -41,13 +43,14 @@ jobs:
           run: |
             echo $URL
         with:
-            run: |
-              curl \
-                -X POST \
-                $URL \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $GIT_TOKEN" \
-                --data '{ "body": $GITHUB_OUTPUT }'
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: ${{ steps.get_ai_review.outputs.output }}
+            })
+              
       
       # - name: Add comment
       #   env:
