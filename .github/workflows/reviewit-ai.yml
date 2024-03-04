@@ -2,7 +2,9 @@ name: ReviewIt-AI
 
 on:
   pull_request:
-  discussion_comment:
+    branches:
+      - main
+    types: [opened, synchronize]
 
 jobs:
   review:
@@ -38,13 +40,14 @@ jobs:
           # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
           
       - name: Add PR Comment
+        env:
+          output: ${{ steps.review.outputs.OUTPUT }}
         uses: actions/github-script@v6
         with:
           script: |
-            const output = `# ReviewIt: \n ${{ steps.review.outputs.OUTPUT }}`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `# Review Results: \n\n` + output
+              body: `# Review Results: \n\n` + "$output"
             })
