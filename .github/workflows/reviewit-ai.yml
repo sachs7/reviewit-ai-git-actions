@@ -28,21 +28,22 @@ jobs:
           pip install -r requirements.txt --quiet
 
       - name: Run ReviewIt-AI
-        id: get_ai_review
+        id: review
         run: |
           echo $REPO
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
-          echo
-          echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
+          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+          # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
           
       - name: Add PR Comment
         uses: actions/github-script@v6
         with:
           script: |
+            const output = `# ReviewIt: \n ${{ steps.review.outputs.stdout }}`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{ steps.get_ai_review.outputs.output }}`
+              body: `# Review Results: \n\n` + output
             })
