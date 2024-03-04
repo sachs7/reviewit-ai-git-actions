@@ -33,15 +33,11 @@ jobs:
           echo $REPO
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
-          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+          echo
+          echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
           
       - name: Add PR Comment
         uses: actions/github-script@v6
-        env:
-          URL: ${{ github.event.issue.comments_url }}
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-          run: |
-            echo $URL
         with:
           script: |
             github.rest.issues.createComment({
