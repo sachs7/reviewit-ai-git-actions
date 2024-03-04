@@ -44,5 +44,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              message: `${{ steps.get_ai_review.outputs.stdout }}`
+              body: {message: `${{ steps.get_ai_review.outputs.stdout }}`}
             })
