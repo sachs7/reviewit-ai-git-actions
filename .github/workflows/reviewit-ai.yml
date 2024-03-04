@@ -14,8 +14,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
-          cache: 'pip'
+          python-version: "3.11.5"
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -27,4 +27,7 @@ jobs:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
-        run: python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+        run: |
+          echo ${{ PR_NUMBER }}
+          echo ${{ REPO }}
+          python .github/actions/reviewit.py -r `$REPO` -p `$PR_NUMBER`
