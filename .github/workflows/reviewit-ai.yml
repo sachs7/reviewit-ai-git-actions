@@ -36,9 +36,9 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.issues.createComment({
+            github.issues.createComment({
               issue_number: context.issue.number,
-              body: ${{ steps.run-my-script.outputs.output }}
+              body: `${{ steps.run-my-script.outputs.output }}`
             })
       
       # - name: Add comment
