@@ -1,0 +1,2 @@
+def te:
+return a
