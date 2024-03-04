@@ -34,15 +34,18 @@ jobs:
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
           echo
-          echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
+          # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
+          echo "output=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           
       - name: Add PR Comment
         uses: actions/github-script@v6
+        env:
+          output: ${{ steps.get_ai_review.outputs.output }}
         with:
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{ steps.get_ai_review.outputs.output }}`
+              body: `$output`
             })
