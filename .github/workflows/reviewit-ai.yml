@@ -24,7 +24,8 @@ jobs:
       - name: Run ReviewIt-AI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
+          # GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
+          GIT_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
         run: |
