@@ -2,6 +2,7 @@ name: ReviewIt-AI
 
 on:
   pull_request:
+  discussion_comment:
 
 jobs:
   review:
@@ -30,4 +31,4 @@ jobs:
         run: |
           echo ${{ PR_NUMBER }}
           echo ${{ REPO }}
-          python .github/actions/reviewit.py -r `$REPO` -p `$PR_NUMBER`
+          python .github/actions/reviewit.py -r ${{ REPO }} -p ${{ PR_NUMBER }}
