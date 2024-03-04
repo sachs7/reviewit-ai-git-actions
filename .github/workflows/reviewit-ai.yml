@@ -35,7 +35,10 @@ jobs:
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
           echo
           # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
-          echo "review-output=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
+          echo "MULTILINE_OUTPUT_VAR<<EOF
+          $(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)
+          EOF" >> $GITHUB_OUTPUT
+          # echo "review-output=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           
       - name: Add PR Comment
         uses: actions/github-script@v6
@@ -45,5 +48,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{ steps.get_ai_review.outputs.review-output }}`
+              body: `${{ steps.get_ai_review.outputs.MULTILINE_OUTPUT_VAR }}`
             })
