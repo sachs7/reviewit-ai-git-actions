@@ -39,15 +39,27 @@ jobs:
           # echo "OUTPUT=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
           
+      # - name: Add PR Comment
+      #   env:
+      #     sac: ${{ steps.review.outputs.stdout }}
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: `${{env.sac}}`
+      #       })
       - name: Add PR Comment
-        env:
-          sac: ${{ steps.review.outputs.stdout }}
         uses: actions/github-script@v6
         with:
           script: |
+            const { stdout } = require('process');
+            const output = stdout.toString('utf-8');
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{env.sac}}`
+              body: output
             })
