@@ -29,11 +29,6 @@ jobs:
 
       - name: Run ReviewIt-AI
         id: get_ai_review
-        # env:
-        #   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        #   GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
-        #   PR_NUMBER: ${{ github.event.number }}
-        #   REPO: ${{ github.repository }}
         run: |
           echo $REPO
           echo $PR_NUMBER
@@ -55,18 +50,3 @@ jobs:
               repo: context.repo.repo,
               body: `${{ steps.get_ai_review.outputs.output }}`
             })
-              
-      
-      # - name: Add comment
-      #   env:
-      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      #     GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       github.rest.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: `${{env.SCRIPT_OUTPUT}}`
-      #       })
