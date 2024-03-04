@@ -12,15 +12,18 @@ def get_file_contents(repo_name, pr_number):
     try:
         # Get the repository object
         repo = g.get_repo(repo_name)
+        click.echo(f"Repo: {repo}")
 
         # Get the pull request object
         pr = repo.get_pull(pr_number)
+        click.echo(f"PR: {pr}")
 
         # Initialize an empty dictionary to store file contents
         file_dict = {}
 
         # Get the commits from the pull request
         commits = pr.get_commits()
+        click.echo(f"Commits: {commits}")
 
         # Get the files from the commits
         for commit in commits:
@@ -39,7 +42,6 @@ def get_file_contents(repo_name, pr_number):
         # Return the concatenated file contents
         return "\n".join(file_dict.values())
     except Exception as e:
-        # print(f"An error occurred: {e}")
         click.echo(f"An error occurred: {e}", err=True)
         return None
 
