@@ -31,7 +31,7 @@ jobs:
           echo $REPO
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
-          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER >> $GITHUB_OUTPUT
+          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
           
       - name: Add PR Comment
         uses: actions/github-script@v6
