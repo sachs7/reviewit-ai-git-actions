@@ -1,6 +1,7 @@
 # ReviewIt-AI GitHub Actions
 
-_wip to make it work in Actions, currently encountering issue_
+- The code is working and getting the PR details and suggesting improvements (please check the [sample PR](https://github.com/sachs7/reviewit-ai-git-actions/pull/20/checks#step:5:22))
+- Facing an issue of posting a comment on the PR with the response from ReviewIt-AI (to be fixed soon!)
 
 ### Sample Output:
 
