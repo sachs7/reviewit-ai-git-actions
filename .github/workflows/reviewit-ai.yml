@@ -49,5 +49,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `# Review Results: \n\n` + "$output"
+              body: `# Review Results: \n\n` + `$output`
             })
