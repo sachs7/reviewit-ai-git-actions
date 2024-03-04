@@ -35,13 +35,13 @@ jobs:
           echo $REPO
           echo $PR_NUMBER
           echo "python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER"
-          # python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
-          echo "OUTPUT=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
+          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+          # echo "OUTPUT=$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)" >> $GITHUB_OUTPUT
           # echo "::set-output name=output::$(python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER)"
           
       - name: Add PR Comment
         env:
-          output: ${{ steps.review.outputs.OUTPUT }}
+          sac: ${{ steps.review.outputs.stdout }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -49,5 +49,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `# Review Results: \n\n` + `$output`
+              body: "$($sac)"
             })
