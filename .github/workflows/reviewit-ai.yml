@@ -55,8 +55,16 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { stdout } = require('process');
-            const output = stdout.toString('utf-8');
+            const { stdout, stderr } = require('process');
+      
+            let output = stdout.toString('utf-8');
+            // Check for errors in the standard error stream
+            const error = stderr.toString('utf-8').trim();
+            if (error) {
+              console.log("Error running the script:", error);
+              output = "An error occurred while running the ReviewIt-AI script.";
+            }
+      
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
