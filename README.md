@@ -4,6 +4,8 @@ _wip to make it work in Actions, currently encountering issue_
 
 ### Sample Output:
 
+- Help:
+
 ```
 (reviewit-ai-git-actions) ➜  reviewit-ai-git-actions git:(fix) ✗ python .github/actions/reviewit.py --help                                 
 
@@ -15,7 +17,9 @@ Options:
   --help                   Show this message and exit.
 ```
 
+- Example run:
 
+```
 (reviewit-ai-git-actions) ➜  reviewit-ai-git-actions git:(temp) python .github/actions/reviewit.py -r 'sachs7/reviewit-ai-git-actions' -p 10
 
 def something(a, b):
@@ -29,6 +33,7 @@ The provided function `something` is intended to take two arguments, `a` and `b`
 3. **Documentation**: The function lacks a docstring, which is a good practice to explain what the function does, its parameters, and what it returns.
 
 Here's an improved version of the function:
+```
 
 ```python
 def sum_with_constant(a, b, c):
@@ -45,7 +50,7 @@ def sum_with_constant(a, b, c):
     """
     return a + b + c
 ```
-
+```
 In this improved version, I've added the following:
 
 - A third parameter `c` to the function signature so that it is defined when the function is called.
@@ -53,3 +58,4 @@ In this improved version, I've added the following:
 - A docstring that explains the function's purpose, parameters, and return value.
 
 Remember to always define all the variables you use and provide clear documentation for your functions.
+```
