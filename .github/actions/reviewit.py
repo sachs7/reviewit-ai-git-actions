@@ -39,8 +39,7 @@ def get_file_contents(repo_name, pr_number):
         # Return the concatenated file contents
         return "\n".join(file_dict.values())
     except Exception as e:
-        # print(f"An error occurred: {e}")
-        click.echo(f"An error occurred: {e}", err=True)
+        click.echo(f"An error occurred while reading commits: {e}", err=True)
         return None
 
 
