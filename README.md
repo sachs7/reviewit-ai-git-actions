@@ -1,5 +1,3 @@
-# reviewit-ai-git-actions
-
 # ReviewIt-AI GitHub Actions
 
 _wip to make it work in Actions, currently encountering issue_
