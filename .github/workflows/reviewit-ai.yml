@@ -21,7 +21,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-
       - name: Run ReviewIt-AI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -31,4 +30,19 @@ jobs:
         run: |
           echo $REPO
           echo $PR_NUMBER
-          python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+          SCRIPT_OUTPUT=python .github/actions/reviewit.py -r $REPO -p $PR_NUMBER
+          echo $SCRIPT_OUTPUT
+      
+      - name: Add comment
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN}}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${{env.SCRIPT_OUTPUT}}`
+            })
